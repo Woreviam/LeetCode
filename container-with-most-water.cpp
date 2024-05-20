@@ -31,4 +31,28 @@ public:
         answer = max(answer, solve(height));    
         return answer;
     }
+/*
+// O(n) solution
+
+int maxArea(vector<int>& height) {
+        
+        int max_area = 0, l = 0, r = height.size();
+        while(l < r){
+
+            max_area = max(max_area, (r - l) * min(height[l], height[r]));
+            if(height[l] < height[r])l++;
+            else if(height[l] > height[r]])r--;
+            else l++, r--;
+        }
+        return max_area;
+}
+
+
+
+
+
+
+
+*/
+
 };
