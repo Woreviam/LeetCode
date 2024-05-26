@@ -1,6 +1,6 @@
 class Solution {
 public:
-
+    /*
     #define INF (1<<30)
 
     int DP(int taken, int l, int r, string &s, vector<vector<vector<int> > > &memo){
@@ -46,5 +46,33 @@ public:
 
         return s.substr(l, r - l + 1);
 
+    }
+*/
+
+    string longestPalindrome(string s) {
+
+        string t = "";
+        for(int i = 0; i < s.size(); i++)t += '#', t += s[i];
+        t += '#';
+
+        t = "$" + t + "^";
+        int n = t.size(), center = 1;
+        vector<int>manacher(n);
+
+        for(int i = 1, l = 1, r = 1; i < n; i++){
+            
+            manacher[i] = min(r - i, manacher[l + r - i]);
+            while(t[i - manacher[i]] == t[i + manacher[i]])manacher[i]++;
+            if(i + manacher[i] > r){
+                l = i - manacher[i];
+                r = i + manacher[i];
+            }
+
+            if(manacher[center] < manacher[i])center = i;
+        }   
+
+        string ans = "";
+        for(int i = center - manacher[center] + 2; i < center + manacher[center]; i += 2)ans += t[i];
+        return ans;
     }
 };
